@@ -7,11 +7,166 @@ from bson.json_util import dumps, loads
 import numpy as np
 import pandas as pd
 
+# Set master flask app name 
 app = Flask(__name__)
+
+# set up global DB connection
+client = pymongo.MongoClient("mongodb+srv://AtlasTwitter:1FineTwitterApp!@twittercluster.ycq9k.mongodb.net/")
+
+# Define global word count function 
+def word_count(input):
+    counts = dict()
+    for word in input:
+        if word in counts:
+            counts[word] += 1
+        else:
+            counts[word] = 1
+    return counts
+
+@app.route("/api/dashboard/testscatter/", methods=['GET'])
+def scatterResults():
+
+    # Set Up Test Scatter 
+    mongo_db = client["testDB"]
+    mongo_collection = mongo_db["test_sentiment"]
+    
+    # set QueryIdentity from API GET, clean out commas
+    QueryIdentity = request.args.get("name",None)
+    print(f"got name {QueryIdentity}")
+    if QueryIdentity.startswith('"') and QueryIdentity.endswith('"'):
+        QueryIdentity = QueryIdentity[1:-1]
+        print(f"revised name {QueryIdentity}")
+    
+    # Query database for relevant identity and return as JSON 
+    scatter_df = pd.DataFrame(list(mongo_collection.find({"Identity": QueryIdentity} ,{ "_id": 0, "Likes": 1, "Retweets" : 1, "Sentiment": 1, "Tweet Content": 1, "Date": 1} )))
+    scatter_df.rename(columns={"Tweet Content": "Tweet_Content"}, inplace=True)
+    scatter_json = scatter_df.to_json(orient="records")
+    return scatter_json
+
+@app.route('/getmsg/', methods=['GET'])
+def respond():
+    # Retrieve the name from url parameter
+    name = request.args.get("name", None)
+    # For debugging
+    print(f"got name {name}")
+    response = {}
+    # Check if user sent a name at all
+    if not name:
+        response["ERROR"] = "no name found, please send a name."
+    # Check if the user entered a number not a name
+    elif str(name).isdigit():
+        response["ERROR"] = "name can't be numeric."
+    # Now the user entered a valid name
+    else:
+        response["MESSAGE"] = f"Welcome {name} to our awesome platform!!"
+    # Return the response in json format
+    return jsonify(response)
+
+@app.route("/api/wordcloud/testhashtags/", methods=['GET'])
+def HashWordCloud():
+    # for reference, dev call structure is:
+    # http://127.0.0.1:5000/api/wordcloud/?identity=%22Jimmy%20Fallon%22
+
+    # get twitter identity from API URL query / call 
+    QueryIdentity = request.args.get("identity", None)
+    print(f"got name {QueryIdentity}")
+    if QueryIdentity.startswith('"') and QueryIdentity.endswith('"'):
+        QueryIdentity = QueryIdentity[1:-1]
+        print(f"revised name {QueryIdentity}")
+    # set up database connection
+    mongo_db = client["testDB"]
+    mongo_collection = mongo_db["test_sentiment"]
+    # query db
+    output =  mongo_collection.find( { "Identity": QueryIdentity, "Hashtags(#)": {"$ne" : '[]'} },{ "_id": 0, "Hashtags(#)": 1, "Sentiment": 1} )
+    # convert to dataframe
+    output_df = pd.DataFrame(list(output))
+    # filter out empty hashtags 
+    filtered_df = output_df[output_df['Hashtags(#)'].apply(len).gt(0)]
+    exploded_df = filtered_df.explode('Hashtags(#)')
+
+    exploded_group_df = exploded_df.groupby(['Hashtags(#)'])
+    exploded_group_df = exploded_df.groupby(['Hashtags(#)']).count()
+    exploded_group_df['WordCount'] = exploded_df.groupby(['Hashtags(#)']).count()
+    exploded_group_df['AvgSentiment'] = exploded_df.groupby(['Hashtags(#)']).mean()
+    exploded_group_df.drop('Sentiment', 1, inplace = True)
+
+    # function to group sentiment values and categorise 
+    def GroupSentiment(AvgSentiment):
+        if AvgSentiment >= .4:
+            return "Positive"
+        if AvgSentiment >-.4 and AvgSentiment < .4:
+            return "Neutral"
+        if (AvgSentiment <.4 and AvgSentiment >= -1):
+            return "Negative"
+            
+    # Run Group Sentiment function to bin sentiment values, sort ascending, get top 200, return as JSON
+    exploded_group_df['OverallSentiment'] = exploded_group_df['AvgSentiment'].apply(GroupSentiment)
+    exploded_group_df.sort_values(['WordCount'], ascending=False, inplace=True)
+    return_df = exploded_group_df.head(200)
+    return_df.reset_index(inplace = True)
+    return Response(return_df.to_json(orient="records"), mimetype='application/json')    
+    ## these records have been stored as arrays and this code isnt needed anymore 
+    # HashTagArray = [eval(x) for x in output_df["Hashtags(#)"]]
+    # flattened_Hashtag_list = []
+    # for l1 in HashTagArray:
+    #     for l2 in l1:
+    #         flattened_Hashtag_list.append(l2)
+    # hashtag_dict = word_count(flattened_Hashtag_list)
+    # dict_df = pd.DataFrame()
+    # dict_df = pd.DataFrame(list(hashtag_dict.items()),columns = ['text','size']) 
+    # dict_df.sort_values(['size'], ascending=False, inplace=True)
+    # dict_df = dict_df.head(200)
+
+
+@app.route("/api/wordcloud/testatmentions/", methods=['GET'])
+def AtWordCloud():
+    # for reference, dev call structure is:
+    # http://127.0.0.1:5000/api/wordcloud/?identity=%22Jimmy%20Fallon%22
+
+    # get twitter identity from API URL query / call 
+    QueryIdentity = request.args.get("identity", None)
+    print(f"got name {QueryIdentity}")
+    if QueryIdentity.startswith('"') and QueryIdentity.endswith('"'):
+        QueryIdentity = QueryIdentity[1:-1]
+        print(f"revised name {QueryIdentity}")
+    # set up database connection
+    mongo_db = client["testDB"]
+    mongo_collection = mongo_db["test_sentiment"]
+    # query db
+    output =  mongo_collection.find( { "Identity": QueryIdentity, "Mentions(@)": {"$ne" : '[]'} },{ "_id": 0, "Mentions(@)": 1, "Sentiment": 1} )
+    # convert to dataframe
+    output_df = pd.DataFrame(list(output))
+    # filter out empty hashtags 
+    filtered_df = output_df[output_df['Mentions(@)'].apply(len).gt(0)]
+    exploded_df = filtered_df.explode('Mentions(@)')
+
+    exploded_group_df = exploded_df.groupby(['Mentions(@)'])
+    exploded_group_df = exploded_df.groupby(['Mentions(@)']).count()
+    exploded_group_df['WordCount'] = exploded_df.groupby(['Mentions(@)']).count()
+    exploded_group_df['AvgSentiment'] = exploded_df.groupby(['Mentions(@)']).mean()
+    exploded_group_df.drop('Sentiment', 1, inplace = True)
+
+    # function to group sentiment values and categorise 
+    def GroupSentiment(AvgSentiment):
+        if AvgSentiment >= .4:
+            return "Positive"
+        if AvgSentiment >-.4 and AvgSentiment < .4:
+            return "Neutral"
+        if (AvgSentiment <.4 and AvgSentiment >= -1):
+            return "Negative"
+            
+    # Run Group Sentiment function to bin sentiment values, sort ascending, get top 200, return as JSON
+    exploded_group_df['OverallSentiment'] = exploded_group_df['AvgSentiment'].apply(GroupSentiment)
+    exploded_group_df.sort_values(['WordCount'], ascending=False, inplace=True)
+    return_df = exploded_group_df.head(200)
+    return_df.reset_index(inplace = True)
+    return Response(return_df.to_json(orient="records"), mimetype='application/json')   
+
 
 @app.route('/')
 def index():
     return render_template("index.html")
+
 
 if __name__ == '__main__':
     # Threaded option to enable multiple instances for multiple user access support
@@ -25,7 +180,6 @@ if __name__ == '__main__':
 
 # def word_count(input):
 #     counts = dict()
-    
 #     for word in input:
 #         if word in counts:
 #             counts[word] += 1
