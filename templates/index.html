@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Twitterazzi 2.0</title>
+
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+        <link rel="stylesheet" href="../static/css/style.css">
+        <script src="https://d3js.org/d3.v6.min.js"></script>
+    </head>
+
+    <body>
+        <div class="jumbotron">
+            <div class="container">
+                <h1 class="main-header">Twitterazzi&#128172;</h1>
+                <p>Top 50 User Stats!</p>
+                <br/><br/>
+                <p> Select your user: 
+                    <select id="selDataset" onchange="optionChanged(this.value)">
+                    </select>
+                </p>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <h2>Bio and stats</h2>
+                    <img src="#" alt="user pic">
+                    <p id="user-bio">
+                        Spicy jalapeno bacon ipsum dolor amet tongue in turkey rump ham hock jerky eu deserunt dolor, flank andouille alcatra aute aliqua. Kevin et bresaola eu veniam porchetta picanha. Lorem fugiat velit ipsum, pancetta beef burgdoggen pork loin sed t-bone ad cow ex. Esse consequat leberkas, pig short loin labore ball tip deserunt sint ullamco shankle ex. Minim aliquip kielbasa, ad venison buffalo eu culpa leberkas. Porchetta et sunt dolore reprehenderit burgdoggen, doner cillum sint salami incididunt. Ut shankle pariatur incididunt, frankfurter biltong anim andouille in shoulder veniam proident ribeye qui aliqua.
+                    </p>
+
+                    <p>
+                        <div id="day-totals">
+                        </div>
+                    </p>
+
+                </div>
+
+                <div class="col-md-8">
+
+                    <!-- html buttons -->
+                    <!-- <button class="button button1">Word Cloud #1</button>
+                    <button class="button button2">Word Cloud #2</button>
+                    <button class="button button3">Arc Diagram</button>
+                    <button class="button button4">Sentiment Graph</button> -->
+
+                    <!-- bootstrap buttons -->
+                    <button type="button" class="btn btn-outline-primary btn-lg" id="word-cloud1-btn">Word Cloud #1</button>
+                    <button type="button" class="btn btn-outline-secondary btn-lg" id="word-cloud2-btn">Word Cloud #2</button>
+                    <button type="button" class="btn btn-outline-success btn-lg" id="arc-diagram-btn">Arc Diagram</button>
+                    <button type="button" class="btn btn-outline-danger btn-lg" id="sentiment-btn">Sentiment Graph</button>
+
+                    <br/>
+                    <br/>
+
+                <div id="dynamic-viz">
+                    <!-- Stu's object, change w/js -->
+                    <iframe width="100%" height="860" frameborder="0"
+                    src="https://observablehq.com/embed/@stu-vic/arc-diagram?cells=viewof+order%2Cchart"></iframe>
+                </div>
+            </div>
+            </div>
+
+            <div class="row justify-content-end">
+                <div class="col-md-8">
+                    <div id="another-viz">
+                    </div>
+                </div>
+            </div>
+
+            <br/>
+            <br/>
+
+
+            <div class="row">
+                <div class="col-md-12">
+                    <hr class="solid">
+
+                </div>
+
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <h3>App intro and reason for analysis</h3>
+                    <p id="app-intro">
+                        Spicy jalapeno bacon ipsum dolor amet id magna occaecat dolore. Id sirloin non, in dolor chuck veniam swine tempor. Hamburger kielbasa culpa reprehenderit leberkas est nulla deserunt filet mignon pig sausage mollit. Anim alcatra kevin, aute et beef ribs sausage labore tri-tip ut est exercitation cupidatat. Chuck quis tenderloin ipsum ham. Capicola hamburger aliqua meatloaf mollit sint anim consectetur pork belly fatback. Dolore sed nulla veniam laboris jowl burgdoggen short ribs in. <br/><br/>
+
+                        Biltong pastrami in minim voluptate, frankfurter ut bacon doner nisi sed laborum nulla. Fatback enim tongue sint dolore ut swine landjaeger mollit et flank shank ullamco. Turkey flank esse, velit commodo fatback id consectetur occaecat mollit minim shank drumstick. Meatball laborum picanha andouille pork belly id dolor pork chop. Tempor cupidatat flank, laborum ground round ham hock irure cupim in dolor non.<br/><br/>
+
+                        Veniam ullamco chuck id jowl. Short ribs ut ad ut ball tip porchetta aliquip ut buffalo officia pork swine tri-tip minim. Sint spare ribs drumstick flank shankle tail andouille incididunt ribeye pork loin excepteur doner burgdoggen tri-tip. Ham hock shoulder andouille voluptate, beef pariatur tongue in corned beef chislic proident sausage sunt. Nostrud laboris spare ribs short ribs tail in tenderloin strip steak sausage aute nulla jerky mollit.
+                    </p>
+
+
+
+            <div class="row">
+                <div class="col-md-12">
+                    <hr class="solid">
+
+                </div>
+
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div id="static-viz">
+                    </div>
+                </div>
+            </div>
+
+
+
+        </div>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.5.0/d3.min.js"></script>
+        <script type="text/javascript" src="static/js/logic.js"></script>
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+        <script src="https://d3js.org/d3.v6.min.js"></script>
+      
+
+
+    </body>
+</html>
