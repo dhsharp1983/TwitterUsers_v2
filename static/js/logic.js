@@ -1,11 +1,9 @@
 init();
 
 
-
 function init() {
     d3.json("/api/identitylist/", function(data) {
         var names = data.map(a => a.Identities);
-        console.log(GlobalPageLocation)
         // appending the names to the dropdown list
         names.forEach(function(Append) {
             // console.log(Append)
@@ -29,7 +27,7 @@ function optionChanged(User) {
     var currentUser = User
     sessionStorage.setItem('user',currentUser)
     currentPage = sessionStorage.getItem('page')
-    console.log("Option Changed Function: page: " + currentPage + " user: " + currentUser)
+    console.log("User Option Changed Function: page: " + currentPage + " user: " + currentUser)
     SVGCaller(currentUser,currentPage)
  // call the API with the name selected, so call ..../Katy Perry from the database
     // dashBoard(incomingData);
