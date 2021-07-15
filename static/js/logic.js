@@ -24,9 +24,15 @@ function init() {
 // This function calls which SVG to plot 
 function SVGCaller(user,page) {
     // console.log("SVG Caller: " + user + " " + page)
-    if (page === "sentiment-btn") {
-        scatter(user)
+    if (page === "sentiment1-btn") {
+        scikitscatterplot(user)
     }
+
+    else if (page === "word-cloud1-btn") {
+        defme(user)
+        console.log("SVGCaller Calls" + user + " for " + page)
+    };
+
     // if (page === "word-cloud1-btn") {
     //     voroni(user)
     // }

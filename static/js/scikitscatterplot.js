@@ -8,7 +8,7 @@ function scikitscatterplot(name) {
     //removing the scatterplot
     d3.select("#dynamic-viz").html("");
 
-    console.log(name);
+    console.log("SciKitScatterPlot("+name+")");
     
     var identity = name;
     var Tooltip
@@ -25,7 +25,7 @@ function scikitscatterplot(name) {
     .append("g")
     .attr("transform","translate(" + margin.left + "," + margin.top + ")")
 
-    d3.json(`/api/dashboard/testscatter/?name=${name}`).then(function(data) {
+    d3.json(`/api/dashboard/scikitscatterplot/?identity=${name}`).then(function(data) {
         console.log("start graph")
         console.log(data)
         console.log(data.Retweets)

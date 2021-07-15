@@ -130,6 +130,14 @@
         
         <!-- ##Load Multiple D3 verions -->
         <!-- ##call D3 by prefacing "d3 = d3versionX" at top of visualisation code  -->
+
+        <!-- Load D3 v3 -->
+        <script src="https://d3js.org/d3.v3.min.js"></script>
+        <script>
+            d3version3 = d3
+            window.d3 = null
+        </script>
+
         <!-- Load D3 vers 4 -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.10.0/d3.min.js"></script>
             <script>
@@ -151,9 +159,12 @@
                 window.d3 = null
             </script>
 
-
+        <!-- Load Wordcloud1 code -->
+        <script type="text/javascript" src="static/js/wordcloud1.js"></script>
+        <!-- Load Wordcloud2 code -->
+        <!-- <script type="text/javascript" src="static/js/wordcloud2.js"></script> -->
         <!-- Load Scatterplot code -->
-        <script type="text/javascript" src="static/js/scatterplot.js"></script>
+        <script type="text/javascript" src="static/js/scikitscatterplot.js"></script>
         <!-- Load Voroni code -->
         <script type="text/javascript" src="static/js/voroni.js"></script>
         <!-- Load Logic File Last  -->
