@@ -24,6 +24,10 @@ p {
     color: black;
 }
 
+#select-viz{
+    color: black;
+}
+
 .col-md-4 {
     background-color: #DDDDDD;
 }
@@ -106,10 +110,16 @@ p {
 
 .btn {
     color: #1DA1F2;
-    border: 1px solid #1DA1F2
+    border: 1px solid #1DA1F2;
+    
 }
 
 .btn:hover {
     background-color: #1DA1F2;
     border: 1px solid #1DA1F2
+}
+
+#dynamic-viz {
+  width: auto;
+  height: 800px;
 }
