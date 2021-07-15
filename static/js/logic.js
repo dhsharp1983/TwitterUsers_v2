@@ -24,9 +24,15 @@ function init() {
 // This function calls which SVG to plot 
 function SVGCaller(user,page) {
     // console.log("SVG Caller: " + user + " " + page)
-    if (page === "sentiment-btn") {
-        scatter(user)
+    if (page === "sentiment1-btn") {
+        scikitscatterplot(user)
     }
+
+    else if (page === "word-cloud1-btn") {
+        WordCloud1(user)
+        console.log("SVGCaller Calls" + user + " for " + page)
+    };
+
     // if (page === "word-cloud1-btn") {
     //     voroni(user)
     // }
@@ -57,11 +63,10 @@ function optionChanged(User) {
     // scatter(incomingData);
 };
 
-function ButtonClick(ButtonID) {
-    var page = ButtonID
-    sessionStorage.setItem('page',ButtonID)
+function ButtonClick(page) {
+    sessionStorage.setItem('page',page)
     currentUser = sessionStorage.getItem('user')
-    console.log("Button Click Function: page: " + ButtonID + " user: " + currentUser)
+    console.log("Button Click Function: page: " + page + " user: " + currentUser)
     SVGCaller(currentUser,page)
 };
 
