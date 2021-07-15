@@ -29,7 +29,7 @@ function SVGCaller(user,page) {
     }
 
     else if (page === "word-cloud1-btn") {
-        defme(user)
+        WordCloud1(user)
         console.log("SVGCaller Calls" + user + " for " + page)
     };
 
@@ -63,11 +63,10 @@ function optionChanged(User) {
     // scatter(incomingData);
 };
 
-function ButtonClick(ButtonID) {
-    var page = ButtonID
-    sessionStorage.setItem('page',ButtonID)
+function ButtonClick(page) {
+    sessionStorage.setItem('page',page)
     currentUser = sessionStorage.getItem('user')
-    console.log("Button Click Function: page: " + ButtonID + " user: " + currentUser)
+    console.log("Button Click Function: page: " + page + " user: " + currentUser)
     SVGCaller(currentUser,page)
 };
 

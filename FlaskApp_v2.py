@@ -237,6 +237,7 @@ def ScikitHashWordCloud():
     exploded_group_df.sort_values(['WordCount'], ascending=False, inplace=True)
     return_df = exploded_group_df.head(200)
     return_df.reset_index(inplace = True)
+    return_df.rename(columns = {'Hashtags(#)': 'text'}, inplace=True)
     return Response(return_df.to_json(orient="records"), mimetype='application/json')    
     ## these records have been stored as arrays and this code isnt needed anymore 
     # HashTagArray = [eval(x) for x in output_df["Hashtags(#)"]]
