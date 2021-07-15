@@ -11,7 +11,6 @@ function scatter(name) {
     console.log(name);
     
     var identity = name;
-    var Tooltip
 
     var margin = {top: 50, right: 30, bottom: 50, left: 60},
     width = 600 - margin.left - margin.right,
@@ -53,10 +52,10 @@ function scatter(name) {
         .range([ "red", "grey", "blue"])
 
         // create tooltop div
-        Tooltip = d3.select("#dynamic-viz")
+        var Tooltip = d3.select("#dynamic-viz")
             .append("div")
-            .attr("class", "tooltip")
             .style("opacity", 0)
+            .attr("class", "tooltip")
             .style("background-color", "white")
             .style("border", "solid")
             .style("border-width", "2px")
@@ -64,28 +63,18 @@ function scatter(name) {
             .style("padding", "5px")
 
         // Three function that change the tooltip when user hover / move / leave a cell
-        function mouseover (d) {
-            var html = "<b>Date: </b>" + d.Date + "<br>" + "<b>Tweet</b>: " + d.Tweet_Content
-            var color = "red"
-            Tooltip.html(html)
-                .style("left", (d3.mouse(this)[0]) + "px")
-                .style("top", (d3.event.pageY - 380) + "px")
-                .style("opacity", .8)
-            // Tooltip.style("opacity", 1)
-            //     .html("<b>Date: </b>" + d.Date + "<br>" + "<b>Tweet</b>: " + d.Tweet_Content)
+        var mouseover = function(d) {
+            Tooltip.style("opacity", 1)
             }
         var mousemove = function(d) {
             Tooltip.html("<b>Date: </b>" + d.Date + "<br>" + "<b>Tweet</b>: " + d.Tweet_Content)
             // Tooltip.html("tweet: ")
-                .style("left", (d3.mouse(this)[0]+70) + "px")
-                .style("top", (d3.mouse(this)[1] + 50) + "px")
+            .style("left", (d3.mouse(this)[0]+70) + "px")
+            .style("top", (d3.mouse(this)[1] + 50) + "px")
         }
-        function mouseleave (d) {
+        var mouseleave = function(d) {
             Tooltip
-            // .style("opacity", 0)
-            .select(".tooltip")
-            // .exit()
-            .remove()
+            .style("opacity", 0)
         }
 
         // Add dots
@@ -94,15 +83,14 @@ function scatter(name) {
         .data(data)
         .enter()
         .append("circle")
-        .attr("cx", function (d) {return 0;})
+        .attr("cx", function (d) {return x(d.Likes)})
         .attr("cy", function (d) { return y(d.Retweets); } )
-        .attr("r", 2)
+        .attr("r", 5)
+        // .style("fill","black")
         .style("fill", function (d) { return color(d.Sentiment) } )
         .on("mouseover", mouseover )
+        .on("mousemove", mousemove )
         .on("mouseleave", mouseleave )
-        .transition().delay(function(d,i){return(i*.25)}).duration(500)
-        .attr("cx", function (d) {return x(d.Likes)})
-        // .on("mousemove", mousemove )
         // // Add X axis
         // var x = d3.scaleLinear()
         // // .domain([0, 100000])
