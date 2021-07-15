@@ -8,11 +8,11 @@
 
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
         <link rel="stylesheet" href="../static/css/style.css">
-        <script src="https://d3js.org/d3.v6.min.js"></script>
+
     </head>
 
     <body>
-        <div class="jumbotron">
+        <div class="jumbotron" style="height: 275px">
             <div class="container">
                 <h1 class="main-header">Twitterazzi&#128172;</h1>
                 <p>Top 50 User Stats!</p>
@@ -59,8 +59,8 @@
 
                 <div id="dynamic-viz">
                     <!-- Stu's object, change w/js -->
-                    <iframe width="100%" height="860" frameborder="0"
-                    src="https://observablehq.com/embed/@stu-vic/arc-diagram?cells=viewof+order%2Cchart"></iframe>
+                    <!-- <iframe width="100%" height="860" frameborder="0"
+                    src="https://observablehq.com/embed/@stu-vic/arc-diagram?cells=viewof+order%2Cchart"></iframe> -->
                 </div>
             </div>
             </div>
@@ -115,15 +115,49 @@
 
 
         </div>
-
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.5.0/d3.min.js"></script>
-        <script type="text/javascript" src="static/js/logic.js"></script>
-        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        
+        <!-- ##Load Scripts -->
+        <!-- Load Bootstrap -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-        <script src="https://d3js.org/d3.v6.min.js"></script>
-      
+        
+        <!-- ##Load Multiple D3 verions -->
+        <!-- ##call D3 by prefacing "d3 = d3versionX" at top of visualisation code  -->
+        <!-- Load D3 vers 4 -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.10.0/d3.min.js"></script>
+            <script>
+                d3version4 = d3
+                window.d3 = null
+            </script>
 
+        <!-- Load D3 vers 5 -->
+        <script src="https://d3js.org/d3.v5.min.js"></script>
+            <script>
+                d3version5 = d3
+                window.d3 = null
+            </script>
+        
+        <!-- Load D3 Vers 6 -->
+        <script src="https://d3js.org/d3.v6.min.js"></script>
+            <script>
+                d3version6 = d3
+                window.d3 = null
+            </script>
+
+
+        <!-- Load Scatterplot code -->
+        <script type="text/javascript" src="static/js/scatterplot.js"></script>
+        <!-- Load Voroni code -->
+        <script type="text/javascript" src="static/js/voroni.js"></script>
+        <!-- Load Logic File Last  -->
+        <script type="text/javascript" src="static/js/logic.js"></script>
+
+        <!-- Redundant code -->
+        <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.5.0/d3.min.js"></script> -->
+        <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script> -->
+        <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script> -->
+        <!-- <script src="https://d3js.org/d3.v6.min.js"></script> -->
 
     </body>
 </html>
