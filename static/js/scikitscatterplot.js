@@ -1,6 +1,6 @@
 
 
-function scatter(name) {
+function scikitscatterplot(name) {
 
     // Define D3 version
     d3 = d3version5

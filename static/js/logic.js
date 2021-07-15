@@ -27,9 +27,9 @@ function SVGCaller(user,page) {
     if (page === "sentiment-btn") {
         scatter(user)
     }
-    if (page === "word-cloud1-btn") {
-        voroni(user)
-    }
+    // if (page === "word-cloud1-btn") {
+    //     voroni(user)
+    // }
 }
 
 // function voroni(TwitterIdentity) {

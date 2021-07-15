@@ -49,6 +49,96 @@ def scatterResults():
     scatter_json = scatter_df.to_json(orient="records")
     return scatter_json
 
+@app.route("/api/dashboard/scikitscatterplot/", methods=['GET'])
+def scikitscatterplot():
+
+    # Set Up Test Scatter 
+    mongo_db = client["Tweets_DB"]
+    mongo_collection = mongo_db["Tweets_v2"]
+    
+    # set QueryIdentity from API GET, clean out commas
+    QueryIdentity = request.args.get("identity",None)
+    print(f"got name {QueryIdentity}")
+    if QueryIdentity.startswith('"') and QueryIdentity.endswith('"'):
+        QueryIdentity = QueryIdentity[1:-1]
+        print(f"revised name {QueryIdentity}")
+    
+    # Query database for relevant identity and return as JSON 
+    scatter_df = pd.DataFrame(list(mongo_collection.find({"Identity": QueryIdentity} ,{ "_id": 0, "Likes": 1, "Retweets" : 1, "Sentiment": 1, "Tweet Content": 1, "Date": 1} )))
+    scatter_df.rename(columns={"Tweet Content": "Tweet_Content"}, inplace=True)
+    scatter_json = scatter_df.to_json(orient="records")
+    return scatter_json
+
+@app.route("/api/dashboard/useroverview/", methods=['GET'])
+def useroverview():
+    # for reference, dev call structure is:
+    # http://127.0.0.1:5000/api/dashboard/useroverview/?identity=%22Jimmy%20Fallon%22
+
+    # setup mongo
+    mongo_db = client["Tweets_DB"]
+    mongo_collection = mongo_db["Tweets_v2"]
+    mongo_user_collection = mongo_db["Users_Table"]
+    
+    # set QueryIdentity from API GET, clean out commas
+    QueryIdentity = request.args.get("identity",None)
+    print(f"got name {QueryIdentity}")
+    if QueryIdentity.startswith('"') and QueryIdentity.endswith('"'):
+        QueryIdentity = QueryIdentity[1:-1]
+        print(f"revised name {QueryIdentity}")
+
+    # query database 
+    user_df = pd.DataFrame(list(mongo_user_collection.find({"Identity": QueryIdentity} )))
+    tweet_df = pd.DataFrame(list(mongo_collection.find({"Identity": QueryIdentity} )))
+
+    # Read In Date / Time 
+    tweet_df['Time'] = pd.to_datetime(tweet_df["Time"],format='%H:%M:%S')
+    tweet_df["Date"] = pd.to_datetime(tweet_df["Date"],format="%Y-%m-%d")
+
+    # perform calculations
+    RankingByNumFollowers = user_df.iloc[0]['Ranking_by_followers']
+    RankingByPositiveSentiment = user_df.iloc[0]['Tweet_Positivity_Rank']
+    WikiSummary = user_df.iloc[0]['WikiSummary']
+
+    # Group DF by Day, get stats 
+    identity_groupby_day_df = tweet_df.groupby(pd.Grouper(key='Date', freq='D'))
+    AvgTweetsPerDay = round(identity_groupby_day_df['Tweet Id'].count().mean())
+    AvgLikesPerDay = round(identity_groupby_day_df['Likes'].sum().mean())
+    AvgReTweetsPerDay = round(identity_groupby_day_df['Retweets'].sum().mean())
+    AvgAtMentionsPerDay = round(identity_groupby_day_df['Total @'].sum().mean())
+    AvgHashtagsPerDay = round(identity_groupby_day_df['Total #'].sum().mean())
+
+    # more calculations 
+    TotalTweets = tweet_df['Tweet Id'].count()
+    TotalLikes = tweet_df['Likes'].sum()
+    AvgLikesPerTweet = TotalLikes / TotalTweets
+
+    # more calculations for sentiment 
+    sentiment_groupby_df = tweet_df.groupby(['Sentiment']).count()
+    sentiment_groupby_df.reset_index(inplace=True)
+    PercentPositiveTweets = (sentiment_groupby_df['Tweet Id'].loc[sentiment_groupby_df['Sentiment'] == 1.0].iloc[0] / TotalTweets) * 100
+    PercentNeutralTweets = (sentiment_groupby_df['Tweet Id'].loc[sentiment_groupby_df['Sentiment'] == 0].iloc[0] / TotalTweets) * 100
+    PercentNegativeTweets = (sentiment_groupby_df['Tweet Id'].loc[sentiment_groupby_df['Sentiment'] == -1.0].iloc[0] / TotalTweets) * 100
+
+    # create dictionary of values to return
+    User_Data_Stats = {
+        'AvgLikesPerTweet': round(AvgLikesPerTweet,0),
+        'RankingByNumFollowers': RankingByNumFollowers,
+        'RankingByPositiveSentiment': int(RankingByPositiveSentiment),
+        'WikiSummary': WikiSummary,
+        'PercentPositiveTweets': round(PercentPositiveTweets,1),
+        'PercentNeutralTweets': round(PercentNeutralTweets,1),
+        'PercentNegativeTweets': round(PercentNegativeTweets,1),
+        "AvgTweetsPerDay": AvgTweetsPerDay,
+        "AvgLikesPerDay": AvgLikesPerDay,
+        "AvgReTweetsPerDay": AvgReTweetsPerDay,
+        "AvgAtMentionsPerDay": AvgAtMentionsPerDay,
+        "AvgHashtagsPerDay": AvgHashtagsPerDay
+    }
+
+    # return as json 
+    tweet_json_data = dumps(User_Data_Stats, indent=2)
+    return tweet_json_data
+
 @app.route('/getmsg/', methods=['GET'])
 def respond():
     # Retrieve the name from url parameter
