@@ -120,6 +120,11 @@ p {
 }
 
 #dynamic-viz {
-  width: auto;
+  width: 600px;
   height: 800px;
+  position: relative;
+}
+
+.x.axis path {
+  display: none;
 }
