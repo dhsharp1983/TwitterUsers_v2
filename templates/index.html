@@ -13,7 +13,7 @@
 
     <body>
         <div class="jumbotron" style="height: 275px">
-            <div class="container">
+            <div class="container" style="max-height: 155px">
                 <h1 class="main-header">Twitterazzi&#128172;</h1>
                 <p>Top 50 User Stats!</p>
                 <br/><br/>
@@ -50,12 +50,12 @@
 
                     <p id="select-viz">Select your visualisation:</p>
                     <!-- bootstrap buttons -->
-                    <button type="button" class="btn btn-outline-primary" id="word-cloud1-btn" onclick="ButtonClick(id)">Word Cloud #1</button>
-                    <button type="button" class="btn btn-outline-primary" id="word-cloud2-btn" onclick="ButtonClick(id)">Word Cloud #2</button>
+                    <button type="button" class="btn btn-outline-primary" id="word-cloud1-btn" onclick="ButtonClick(id)">@Mentions WordCloud</button>
+                    <button type="button" class="btn btn-outline-primary" id="word-cloud2-btn" onclick="ButtonClick(id)">#tags WordCloud</button>
                     <button type="button" class="btn btn-outline-primary" id="arc-diagram-btn" onclick="ButtonClick(id)">Arc Diagram</button>
                     <button type="button" class="btn btn-outline-primary" id="force-dir-btn" onclick="ButtonClick(id)">Force-Directed Network</button>
                     <br/>
-                    <button type="button" class="btn btn-outline-primary" id="sentiment1-btn" onclick="ButtonClick(id)">Sentiment Graph #1</button>
+                    <button type="button" class="btn btn-outline-primary" id="sentiment1-btn" onclick="ButtonClick(id)">Sentiment Scatterplot</button>
                     <button type="button" class="btn btn-outline-primary" id="sentiment2-btn" onclick="ButtonClick(id)">Sentiment Graph #2</button>
                     <button type="button" class="btn btn-outline-primary" id="voronoi-btn" onclick="ButtonClick(id)">Voronoi Image</button>
                     <button type="button" class="btn btn-outline-primary" id="extra-btn" onclick="ButtonClick(id)">[extra button]</button>
