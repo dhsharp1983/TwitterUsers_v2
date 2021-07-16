@@ -185,7 +185,7 @@ function voroni(TwitterIdentity) {
        
     }
         
-    var iframebase = '<iframe width="100%" height="750" frameborder="0" '
+    var iframebase = '<iframe width="100%" height="800" frameborder="0" '
     var iframeend = '></iframe>'
 
     assemblediframe = iframebase + iframeURL + iframeend
