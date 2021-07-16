@@ -213,7 +213,7 @@ def ScikitHashWordCloud():
 
     # Filter out single words, return top 200
     exploded_group_df = exploded_group_df[exploded_group_df['WordCount'] > 1]
-    return_df = exploded_group_df.head(200)
+    return_df = exploded_group_df.head(100)
 
     # Size Words 
     def WordSizer(WordCount):
@@ -307,7 +307,7 @@ def ScikitAtMentionWordCloud():
 
     # Filter out single words, return top 200
     exploded_group_df = exploded_group_df[exploded_group_df['WordCount'] > 1]
-    return_df = exploded_group_df.head(200)
+    return_df = exploded_group_df.head(100)
 
     # Size Words 
     def WordSizer(WordCount):

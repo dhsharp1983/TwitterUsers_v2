@@ -180,10 +180,11 @@ function voroni(TwitterIdentity) {
     else if (TwitterIdentity === "Wiz Khalifa") {
         var iframeURL = 'src="https://observablehq.com/embed/@stu-vic/username-wizkhalifa-average-positive-tweet-sentiment-62-s?cells=image"'
     }
-    else (TwitterIdentity === "Youtube") {
-        var iframeURL = 'src="https://observablehq.com/embed/@stu-vic/username-youtube-average-positive-tweet-sentiment-66-sent?cells=image"'
-       
+    else if (TwitterIdentity === "Youtube") {
+        var iframeURL = 'src="https://observablehq.com/embed/@stu-vic/username-youtube-average-positive-tweet-sentiment-66-sent?cells=image"'  
     }
+    else;
+
         
     var iframebase = '<iframe width="100%" height="800" frameborder="0" '
     var iframeend = '></iframe>'

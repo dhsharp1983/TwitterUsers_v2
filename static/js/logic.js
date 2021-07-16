@@ -60,7 +60,7 @@ function SVGCaller(user,page) {
         console.log("SVGCaller - User:" + user + ", Page: " + page)
     }
 
-    else if (page === "voroni-btn") {
+    else if (page === "voronoi-btn") {
         // testfunction(user)
         voroni(user)
         console.log("SVGCaller - User:" + user + ", Page: " + page)
