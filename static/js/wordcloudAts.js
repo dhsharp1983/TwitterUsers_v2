@@ -12,13 +12,13 @@ function WordCloudAts(user) {
     var base_url = "/api/wordcloud/scikitatmentions/?identity="
     var identity = user
     var query_url = base_url + identity
-    console.log(query_url)
-
+    // console.log(query_url)
+    delete data;
     d3.json(query_url, function(data) {
     console.log(data)
 
     var categories = d3.keys(d3.nest().key(function(d) { return d.category; }).map(data));
-    var color = d3.scale.ordinal().range(["#66c2a5","#fc8d62","#8da0cb","#e78ac3","#a6d854"]);
+    // var color = d3.scale.ordinal().range(["#66c2a5","#fc8d62","#8da0cb","#e78ac3","#a6d854"]);
     var fontSize = d3.scale.pow().exponent(5).domain([0,1]).range([10,80]);
 
     var layout = d3.layout.cloud()
@@ -57,7 +57,7 @@ function WordCloudAts(user) {
         .call(xAxis)
         .selectAll('text')
         .style('font-size','20px')
-        .style('fill',function(d) { return color(d); })
+        // .style('fill',function(d) { return color(d); })
         .style('font','sans-serif');
 
     function draw(words) {
