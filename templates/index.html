@@ -33,15 +33,16 @@
             <div class="row">
                 <div class="col-md-4">
                     <div><h2>Bio and stats</h2></div>
-                    <div id="UserPic">
+                    <center><div id="UserPic">
                         <img src="#" alt="user pic">
-                    </div>
+                    </div></center>
                     
                     <div id="UserBio">
-                        Spicy jalapeno bacon ipsum dolor amet tongue in turkey rump ham hock jerky eu deserunt dolor, flank andouille alcatra aute aliqua. Kevin et bresaola eu veniam porchetta picanha. Lorem fugiat velit ipsum, pancetta beef burgdoggen pork loin sed t-bone ad cow ex. Esse consequat leberkas, pig short loin labore ball tip deserunt sint ullamco shankle ex. Minim aliquip kielbasa, ad venison buffalo eu culpa leberkas. Porchetta et sunt dolore reprehenderit burgdoggen, doner cillum sint salami incididunt. Ut shankle pariatur incididunt, frankfurter biltong anim andouille in shoulder veniam proident ribeye qui aliqua.
+                        <!-- Spicy jalapeno bacon ipsum dolor amet tongue in turkey rump ham hock jerky eu deserunt dolor, flank andouille alcatra aute aliqua. Kevin et bresaola eu veniam porchetta picanha. Lorem fugiat velit ipsum, pancetta beef burgdoggen pork loin sed t-bone ad cow ex. Esse consequat leberkas, pig short loin labore ball tip deserunt sint ullamco shankle ex. Minim aliquip kielbasa, ad venison buffalo eu culpa leberkas. Porchetta et sunt dolore reprehenderit burgdoggen, doner cillum sint salami incididunt. Ut shankle pariatur incididunt, frankfurter biltong anim andouille in shoulder veniam proident ribeye qui aliqua. -->
                     </div>
 
-                    
+                    <br/><br/>
+
                     <div id="UserStats">
                         Lorem Ipsum
                     </div>
@@ -62,12 +63,12 @@
                     <button type="button" class="btn btn-outline-primary" id="word-cloud1-btn" onclick="ButtonClick(id)">@Mentions WordCloud</button>
                     <button type="button" class="btn btn-outline-primary" id="word-cloud2-btn" onclick="ButtonClick(id)">#tags WordCloud</button>
                     <button type="button" class="btn btn-outline-primary" id="arc-diagram-btn" onclick="ButtonClick(id)">Arc Diagram</button>
-                    <button type="button" class="btn btn-outline-primary" id="force-dir-btn" onclick="ButtonClick(id)">Force-Directed Network</button>
                     <br/>
+                    <button type="button" class="btn btn-outline-primary" id="force-dir-btn" onclick="ButtonClick(id)">Force-Directed Network</button>
                     <button type="button" class="btn btn-outline-primary" id="sentiment1-btn" onclick="ButtonClick(id)">Sentiment Scatterplot</button>
-                    <button type="button" class="btn btn-outline-primary" id="sentiment2-btn" onclick="ButtonClick(id)">Sentiment Graph #2</button>
+                    <!-- <button type="button" class="btn btn-outline-primary" id="sentiment2-btn" onclick="ButtonClick(id)">Sentiment Graph #2</button> -->
                     <button type="button" class="btn btn-outline-primary" id="voronoi-btn" onclick="ButtonClick(id)">Voronoi Image</button>
-                    <button type="button" class="btn btn-outline-primary" id="ranking-btn" onclick="ButtonClick(id)">Ranking Graph</button>
+                    <!-- <button type="button" class="btn btn-outline-primary" id="ranking-btn" onclick="ButtonClick(id)">Ranking Graph</button> -->
 
                     <br/>
                     <br/>
@@ -111,9 +112,6 @@
                         Have you liked some of their most liked tweets? Have you found yourself feeling positive or negative after reading one of their tweets? Or are you simply interested in what famous people talk about and to whom? Then our data might be interesting to you.
                     </p>
 
-                    <!-- Tableau bar chart by ranking -->
-                    <!-- <div class='tableauPlaceholder' id='viz1626445115069' style='position: relative'><noscript><a href='#'><img alt='Top 50 Twitter users by amount of followers ' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Fi&#47;Finalprojectmaterials2&#47;Top50userranking&#47;1_rss.png' style='border: none' /></a></noscript><object class='tableauViz'  style='display:none;'><param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' /> <param name='embed_code_version' value='3' /> <param name='site_root' value='' /><param name='name' value='Finalprojectmaterials2&#47;Top50userranking' /><param name='tabs' value='no' /><param name='toolbar' value='yes' /><param name='static_image' value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Fi&#47;Finalprojectmaterials2&#47;Top50userranking&#47;1.png' /> <param name='animate_transition' value='yes' /><param name='display_static_image' value='yes' /><param name='display_spinner' value='yes' /><param name='display_overlay' value='yes' /><param name='display_count' value='yes' /><param name='language' value='en-GB' /><param name='filter' value='publish=yes' /></object></div>                <script type='text/javascript'>                    var divElement = document.getElementById('viz1626445115069');                    var vizElement = divElement.getElementsByTagName('object')[0];                    vizElement.style.width='100%';vizElement.style.height=(divElement.offsetWidth*0.75)+'px';                    var scriptElement = document.createElement('script');                    scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';                    vizElement.parentNode.insertBefore(scriptElement, vizElement);                </script> -->
-
             <div class="row">
                 <div class="col-md-12">
                     <hr class="solid">
@@ -122,9 +120,18 @@
 
             </div>
 
-            <div class="row">
+            <br/>
+
+            <!-- <div class="row">
                 <div class="col-md-12">
-                    <div id="static-viz">
+                    <div id="static-viz1">
+                    Tableau bar chart by ranking
+                    <div class='tableauPlaceholder' id='viz1626445115069' style='position: relative'><noscript><a href='#'><img alt='Top 50 Twitter users by amount of followers ' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Fi&#47;Finalprojectmaterials2&#47;Top50userranking&#47;1_rss.png' style='border: none' /></a></noscript><object class='tableauViz'  style='display:none;'><param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' /> <param name='embed_code_version' value='3' /> <param name='site_root' value='' /><param name='name' value='Finalprojectmaterials2&#47;Top50userranking' /><param name='tabs' value='no' /><param name='toolbar' value='yes' /><param name='static_image' value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Fi&#47;Finalprojectmaterials2&#47;Top50userranking&#47;1.png' /> <param name='animate_transition' value='yes' /><param name='display_static_image' value='yes' /><param name='display_spinner' value='yes' /><param name='display_overlay' value='yes' /><param name='display_count' value='yes' /><param name='language' value='en-GB' /><param name='filter' value='publish=yes' /></object></div>                <script type='text/javascript'>                    var divElement = document.getElementById('viz1626445115069');                    var vizElement = divElement.getElementsByTagName('object')[0];                    vizElement.style.width='100%';vizElement.style.height=(divElement.offsetWidth*0.75)+'px';                    var scriptElement = document.createElement('script');                    scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';                    vizElement.parentNode.insertBefore(scriptElement, vizElement);                </script>
+                    </div>
+
+                    <br/> -->
+
+                    <div id="static-viz2">
                         <div class='tableauPlaceholder' id='viz1626443567056' style='position: relative'><noscript><a href='#'><img alt='Where are the top 50 Twitter users based? ' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Fi&#47;Finalprojectmaterials&#47;Finalprojectmap&#47;1_rss.png' style='border: none' /></a></noscript><object class='tableauViz'  style='display:none;'><param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' /> <param name='embed_code_version' value='3' /> <param name='site_root' value='' /><param name='name' value='Finalprojectmaterials&#47;Finalprojectmap' /><param name='tabs' value='no' /><param name='toolbar' value='yes' /><param name='static_image' value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Fi&#47;Finalprojectmaterials&#47;Finalprojectmap&#47;1.png' /> <param name='animate_transition' value='yes' /><param name='display_static_image' value='yes' /><param name='display_spinner' value='yes' /><param name='display_overlay' value='yes' /><param name='display_count' value='yes' /><param name='language' value='en-GB' /><param name='filter' value='publish=yes' /></object></div>                <script type='text/javascript'>                    var divElement = document.getElementById('viz1626443567056');                    var vizElement = divElement.getElementsByTagName('object')[0];                    vizElement.style.width='100%';vizElement.style.height=(divElement.offsetWidth*0.75)+'px';                    var scriptElement = document.createElement('script');                    scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';                    vizElement.parentNode.insertBefore(scriptElement, vizElement);                </script>
                     </div>
                 </div>
