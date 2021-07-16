@@ -1,7 +1,6 @@
 init();
 
 
-
 function init() {
     d3 = d3version4
     console.log(d3.version)
@@ -15,80 +14,51 @@ function init() {
         });
         sessionStorage.setItem('user', 'Akshay Kumar');
         sessionStorage.setItem('page','SentimentGraph1')
-        SVGCaller("Akshay Kumar","sentiment-btn")
-        // dashBoard("Akshay Kumar");
-        // scatter("Akshay Kumar");
+        SVGCaller("Akshay Kumar","voronoi-btn")
     });
 };
 
 // This function calls which SVG to plot 
 function SVGCaller(user,page) {
 
-
     if (page === "word-cloud1-btn") {
         WordCloudAts(user)
         console.log("SVGCaller - User:" + user + ", Page: " + page)
     }
-
     else if (page === "word-cloud2-btn") {
         // testfunction(user)
         WordCloudHashs(user)
         console.log("SVGCaller - User:" + user + ", Page: " + page)
     }
-
     else if (page === "arc-diagram-btn") {
         // testfunction(user)
         ArcDiagram(user)
         console.log("SVGCaller - User:" + user + ", Page: " + page)
     }
-
     else if (page === "force-dir-btn") {
         // testfunction(user)
         ForceDiagram(user)
         console.log("SVGCaller - User:" + user + ", Page: " + page)
     }
-
     else if (page === "sentiment1-btn") {
         // testfunction(user)
         scikitscatterplot(user)
         console.log("SVGCaller - User:" + user + ", Page: " + page)
     }
-
     else if (page === "sentiment2-btn") {
         // testfunction(user)
         WordCloud1(user)
         console.log("SVGCaller - User:" + user + ", Page: " + page)
     }
-
     else if (page === "voronoi-btn") {
         // testfunction(user)
         voroni(user)
         console.log("SVGCaller - User:" + user + ", Page: " + page)
     }
-
     else {
         console.log("page error!")
     };
-
-
-    // if (page === "word-cloud1-btn") {
-    //     voroni(user)
-    // }
 };
-
-// function voroni(TwitterIdentity) {
-    
-//     if (TwitterIdentity = "Bill Gates") {
-//         var iframeURL = 'src="https://observablehq.com/embed/@stu-vic/username-jtimberlake-average-positive-tweet-sentiment-68?cells=image"'
-//     }
-    
-//     var iframebase = '<iframe width="100%" height="1331" frameborder="0 '
-//     var iframeend = '></iframe>'
-
-//     assemblediframe = iframebase + iframeURL + iframeend
-    
-//     d3.select("#divID").html(assemblediframe)
-// };
 
 function optionChanged(User) {
     var currentUser = User
@@ -108,8 +78,23 @@ function ButtonClick(page) {
     SVGCaller(currentUser,page)
 };
 
+function ArcDiagram(user) {
+    d3 = d3version5
+    iframehtml = '<iframe width="100%" height="800" frameborder="0" src="https://observablehq.com/embed/@stu-vic/arc-diagram?cells=chart"></iframe>'
+    console.log("ArcDiagram Function: " + iframehtml)
+    
+    d3.select("#dynamic-viz").html("")
+    d3.select("#dynamic-viz").html(iframehtml)
+}
 
-
+function ForceDiagram(user) {
+    d3 = d3version5
+    iframehtml = '<iframe width="100%" height="800" frameborder="0" src="https://observablehq.com/embed/@stu-vic/force-directed-graph?cells=chart"></iframe>'
+    console.log("ForceDiagram Function: " + iframehtml)
+    
+    d3.select("#dynamic-viz").html("")
+    d3.select("#dynamic-viz").html(iframehtml)
+}
 
 // HERE WAS THE PREVIOUS WORKING CODE 
 // function WordCloud1(name) {

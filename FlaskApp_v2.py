@@ -217,8 +217,8 @@ def ScikitHashWordCloud():
 
     # Size Words 
     def WordSizer(WordCount):
-        min = 10
-        max = 50
+        min = 7
+        max = 45
         LargestWordCount = return_df['WordCount'].iloc[0]
         NumberOfWords = len(return_df)
         LogLargestWordCount = np.log2(LargestWordCount)
@@ -311,8 +311,8 @@ def ScikitAtMentionWordCloud():
 
     # Size Words 
     def WordSizer(WordCount):
-        min = 10
-        max = 50
+        min = 6
+        max = 45
         LargestWordCount = return_df['WordCount'].iloc[0]
         NumberOfWords = len(return_df)
         LogLargestWordCount = np.log2(LargestWordCount)
