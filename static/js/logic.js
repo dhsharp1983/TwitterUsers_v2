@@ -13,7 +13,7 @@ function init() {
             option.append("option").text(Append);
         });
         sessionStorage.setItem('user', 'Akshay Kumar');
-        sessionStorage.setItem('page','SentimentGraph1')
+        sessionStorage.setItem('page','voronoi-btn')
         SVGCaller("Akshay Kumar","voronoi-btn")
         UserStats("Akshay Kumar")
     });
@@ -27,35 +27,34 @@ function SVGCaller(user,page) {
         console.log("SVGCaller - User:" + user + ", Page: " + page)
     }
     else if (page === "word-cloud2-btn") {
-        // testfunction(user)
         WordCloudHashs(user)
         console.log("SVGCaller - User:" + user + ", Page: " + page)
     }
     else if (page === "arc-diagram-btn") {
-        // testfunction(user)
         ArcDiagram(user)
         console.log("SVGCaller - User:" + user + ", Page: " + page)
     }
     else if (page === "force-dir-btn") {
-        // testfunction(user)
         ForceDiagram(user)
         console.log("SVGCaller - User:" + user + ", Page: " + page)
     }
     else if (page === "sentiment1-btn") {
-        // testfunction(user)
         scikitscatterplot(user)
         console.log("SVGCaller - User:" + user + ", Page: " + page)
     }
     else if (page === "sentiment2-btn") {
-        // testfunction(user)
         WordCloud1(user)
         console.log("SVGCaller - User:" + user + ", Page: " + page)
     }
     else if (page === "voronoi-btn") {
-        // testfunction(user)
         voroni(user)
         console.log("SVGCaller - User:" + user + ", Page: " + page)
     }
+    else if (page === "ranking-btn") {
+        RankingGraph(user)
+        console.log("SVGCaller - User:" + user + ", Page: " + page)
+    }
+    
     else {
         console.log("page error!")
     };
@@ -67,6 +66,7 @@ function optionChanged(User) {
     currentPage = sessionStorage.getItem('page')
     console.log("User Option Changed Function: page: " + currentPage + " user: " + currentUser)
     SVGCaller(currentUser,currentPage)
+    UserStats(User)
  // call the API with the name selected, so call ..../Katy Perry from the database
     // dashBoard(incomingData);
     // scatter(incomingData);
@@ -97,29 +97,134 @@ function ForceDiagram(user) {
     d3.select("#dynamic-viz").html(iframehtml)
 }
 
+function RankingGraph(user) {
+    d3 = d3version4
+    
+    d3.select("#dynamic-viz").html("")
+    d3.select("#dynamic-viz").html("<div class='tableauPlaceholder' id='viz1626452245803' style='position: relative'><noscript><a href='#'><img alt='Top 50 Twitter users by amount of followers ' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Fi&#47;Finalprojectmaterials2&#47;Top50userranking&#47;1_rss.png' style='border: none' /></a></noscript><object class='tableauViz'  style='display:none;'><param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' /> <param name='embed_code_version' value='3' /> <param name='site_root' value='' /><param name='name' value='Finalprojectmaterials2&#47;Top50userranking' /><param name='tabs' value='no' /><param name='toolbar' value='yes' /><param name='static_image' value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Fi&#47;Finalprojectmaterials2&#47;Top50userranking&#47;1.png' /> <param name='animate_transition' value='yes' /><param name='display_static_image' value='yes' /><param name='display_spinner' value='yes' /><param name='display_overlay' value='yes' /><param name='display_count' value='yes' /><param name='language' value='en-GB' /><param name='filter' value='publish=yes' /></object></div>                <script type='text/javascript'>                    var divElement = document.getElementById('viz1626452245803');                    var vizElement = divElement.getElementsByTagName('object')[0];                    vizElement.style.width='100%';vizElement.style.height=(divElement.offsetWidth*0.75)+'px';                    var scriptElement = document.createElement('script');                    scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';                    vizElement.parentNode.insertBefore(scriptElement, vizElement);                </script>")
+}
+
+
 function UserStats(user) {
     d3 = d3version5
     var identity = user
-    //removing the scatterplot
+    //removing the previous entries 
     d3.select("#BioImage").html("");
-
-
     d3.select("#UserBio").html("");
-
-    
-
     d3.select("#UserStats").html("");
-
-
 
     d3.json(`/api/dashboard/useroverview/?identity=${user}`).then(function(data) {
 
         UserSummary = data.WikiSummary
-        d3.select("#UserBio").html("" + UserSummary + "")
 
         identity = identity.replace(/\s/g, '');
-        jpgpath = "/Project 3 celebs/" + identity + ".jpg"
-        console.log(jpgpath)
+        var jpgpath = "/static/images/" + identity + ".jpg"
+        var htmljpg = '<img src="' + jpgpath + '" alt="' + user + '" height="200" width="auto">'
+        console.log(data)
+
+        d3.select("#UserPic").html(htmljpg)
+
+        d3.select("#UserBio").html("" + UserSummary + "")
+        var AvgTweetsPerDay = data.AvgTweetsPerDay
+        var AvgLikesPerDay = data.AvgLikesPerDay
+        var AvgAtMentionsPerDay = data.AvgAtMentionsPerDay
+        var AvgHashtagsPerDay = data.AvgHashtagsPerDay
+
+        var RankingByNumFollowers = data.RankingByNumFollowers
+        var RankingByPositiveSentiment = data.RankingByPositiveSentiment
+
+        // var AvgReTweetsPerDay = data.AvgReTweetsPerDay
+        var AvgLikesPerTweet = data.AvgLikesPerTweet
+
+        var PercentPositiveTweets = data.PercentPositiveTweets
+        var PercentNeutralTweets = data.PercentNeutralTweets
+        var PercentNegativeTweets = data.PercentNegativeTweets
+
+
+
+
+        var test = "<h5>Average Tweets Per Day: " + AvgTweetsPerDay + "</h5>"
+
+
+
+
+        console.log(AvgTweetsPerDay)
+
+        var dataarray = Object.values(data)
+        console.log(dataarray)
+        // d3.select("#UserStats").html("<h5>Average Tweets per Day: " + data.AvgTweetsPerDay + "</h5>")
+        var table = d3.select("#UserStats").append("table")
+        // var thead = table.append("thead");
+        // var tbody = table.append("tbody");
+        // var rows = tbody.selectAll("tr")
+            // .data(dataarray)
+            // .enter()
+            // .append("tr")
+            // .append("td")
+            .append("tbody")
+            .append("tr")
+            .html("<h6><b>Average Tweets Per Day:</b> " + AvgTweetsPerDay + "</h6>")
+            .append("tr")
+            .append("td")
+            .html("<h6><b>Average Likes Per Day:</b> " + AvgLikesPerDay + "</h6>")
+            .append("tr")
+            .append("td")
+            .html("<h6><b>Average @Mentions Per Day:</b> " + AvgAtMentionsPerDay + "</h6>")
+            .append("tr")
+            .append("td")
+            .html("<h6><b>Average #tags Per Day:</b> " + AvgHashtagsPerDay + "</h6>")
+            .append("tr")
+            .append("td")
+            .html("<br>")
+            .append("tr")
+            .append("td")
+            .html("<h6><b>Ranking By Number of Followers:</b> " + RankingByNumFollowers + " / 50</h6>")
+            .append("tr")
+            .append("td")
+            .html("<h6><b>Ranking By Positive Sentiment:</b> " + RankingByPositiveSentiment + " / 50</h6>")
+            .append("tr")
+            .append("td")
+            .html("<br>")
+            .append("tr")
+            .append("td")
+            .html("<h6><b>Average Likes Per Tweet:</b> " + AvgLikesPerTweet + "</h6>")
+            .append("tr")
+            .append("td")
+            .html("<br>")
+            .append("tr")
+            .append("td")
+            .html("<h6><b>Percent Positive Tweets:</b> " + PercentPositiveTweets + "</h6>")
+            .append("tr")
+            .append("td")
+            .html("<h6><b>Percent Neutral Tweets:</b> " + PercentNeutralTweets + "</h6>")
+            .append("tr")
+            .append("td")
+            .html("<h6><b>Percent Negative Tweets:</b> " + PercentNegativeTweets + "</h6>")
+
+            });
+            
+        // var table = d3.select("#UserStats").append("table");
+        // var thead = table.append("thead")
+        // var tbody = table.append("tbody");
+        // var rows = tbody.selectAll("tr")
+        //     .data(data)
+        //     .enter()
+        //     .append("tr")
+        //     .append("td")
+        //     .html("<h5>Average Tweets per Day: " + AvgTweetsPerDay + "</h5>")
+
+        // AvgAtMentionsPerDay: 
+        // AvgHashtagsPerDay: 
+        // AvgLikesPerDay: 
+        // AvgLikesPerTweet: 
+        // AvgReTweetsPerDay: 
+        // PercentNegativeTweets:
+        // PercentNeutralTweets: 
+        // PercentPositiveTweets: 
+        // RankingByNumFollowers: 
+        // RankingByPositiveSentiment: 
+        
+        
 
         // console.log("UserStats")
         // console.log(data)
@@ -137,8 +242,8 @@ function UserStats(user) {
         //     .text(function(d) {
         //         return d.WikiSummary
         //     });
-    });
-};
+    };
+
 
 
 
