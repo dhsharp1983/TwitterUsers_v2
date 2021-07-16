@@ -65,7 +65,8 @@ function WordCloudHashs(user) {
             .data(words)
             .enter().append("text")
             .attr('class','word')
-            .style("font-size", function(d) { return d.WordSize + "px"; })
+            .style("font-size", function(d) { return 3 + "px"; })
+            // .style("font-size", function(d) { return d.WordSize + "px"; })
             .style("font-family", function(d) { return d.font; })
             .style("fill", function(d) { 
                 var sentiment = d.OverallSentiment;
@@ -83,6 +84,12 @@ function WordCloudHashs(user) {
                 // return color(paringObject[0].category); 
             })
             .attr("text-anchor", "middle")
+            // .transition().delay(function(d,i){return(i*.25)}).duration(350)
+            .attr("transform", function(d) { return "translate(" + [d.x, d.y] + ")rotate(" + "60" + ")"; })
+            .transition()
+            // .delay(function(d,i){return(i*.25)})
+            .duration(750)
+            .style("font-size", function(d) { return d.WordSize + "px"; })
             .attr("transform", function(d) { return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")"; })
             .text(function(d) { return d.Hashtags; });
     };

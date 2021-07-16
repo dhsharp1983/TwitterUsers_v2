@@ -213,12 +213,12 @@ def ScikitHashWordCloud():
 
     # Filter out single words, return top 200
     exploded_group_df = exploded_group_df[exploded_group_df['WordCount'] > 1]
-    return_df = exploded_group_df.head(200)
+    return_df = exploded_group_df.head(100)
 
     # Size Words 
     def WordSizer(WordCount):
-        min = 10
-        max = 50
+        min = 7
+        max = 45
         LargestWordCount = return_df['WordCount'].iloc[0]
         NumberOfWords = len(return_df)
         LogLargestWordCount = np.log2(LargestWordCount)
@@ -307,12 +307,12 @@ def ScikitAtMentionWordCloud():
 
     # Filter out single words, return top 200
     exploded_group_df = exploded_group_df[exploded_group_df['WordCount'] > 1]
-    return_df = exploded_group_df.head(200)
+    return_df = exploded_group_df.head(100)
 
     # Size Words 
     def WordSizer(WordCount):
-        min = 10
-        max = 50
+        min = 6
+        max = 45
         LargestWordCount = return_df['WordCount'].iloc[0]
         NumberOfWords = len(return_df)
         LogLargestWordCount = np.log2(LargestWordCount)
