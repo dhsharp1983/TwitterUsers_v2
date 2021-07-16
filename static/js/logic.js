@@ -15,6 +15,7 @@ function init() {
         sessionStorage.setItem('user', 'Akshay Kumar');
         sessionStorage.setItem('page','SentimentGraph1')
         SVGCaller("Akshay Kumar","voronoi-btn")
+        UserStats("Akshay Kumar")
     });
 };
 
@@ -95,6 +96,52 @@ function ForceDiagram(user) {
     d3.select("#dynamic-viz").html("")
     d3.select("#dynamic-viz").html(iframehtml)
 }
+
+function UserStats(user) {
+    d3 = d3version5
+    var identity = user
+    //removing the scatterplot
+    d3.select("#BioImage").html("");
+
+
+    d3.select("#UserBio").html("");
+
+    
+
+    d3.select("#UserStats").html("");
+
+
+
+    d3.json(`/api/dashboard/useroverview/?identity=${user}`).then(function(data) {
+
+        UserSummary = data.WikiSummary
+        d3.select("#UserBio").html("" + UserSummary + "")
+
+        identity = identity.replace(/\s/g, '');
+        jpgpath = "/Project 3 celebs/" + identity + ".jpg"
+        console.log(jpgpath)
+
+        // console.log("UserStats")
+        // console.log(data)
+        // console.log(data.WikiSummary)
+
+        
+        // var UserBio = d3.select("#UserBio").append("UserBio");
+        // var thead = UserBio.append("thead")
+        // var tbody = thead.append("tbody");
+        // var rows = tbody.selectAll("tr")
+        //     .data(meta_array)
+        //     .enter()
+        //     .append("tr")
+        //     .append("td")
+        //     .text(function(d) {
+        //         return d.WikiSummary
+        //     });
+    });
+};
+
+
+
 
 // HERE WAS THE PREVIOUS WORKING CODE 
 // function WordCloud1(name) {

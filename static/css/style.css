@@ -10,6 +10,28 @@ h1 {
 
 h2 {
     color:#1DA1F2;
+    font-family:'Courier New', Courier, monospace;
+    font-weight: bold;
+}
+
+h3 {
+  color:#1DA1F2;
+  font-family:'Courier New', Courier, monospace
+}
+
+h4 {
+  color:#1DA1F2;
+  font-family:'Courier New', Courier, monospace
+}
+
+h5 {
+  color:#1DA1F2;
+  font-family:'Courier New', Courier, monospace
+}
+
+h6 {
+  color:#1DA1F2;
+  font-family:'Courier New', Courier, monospace
     font-family: 'Nunito', sans-serif;
     font-weight: 600;
 }
@@ -39,6 +61,10 @@ p {
     height: 370px;
     width: 525px;
     padding-left: 25px;
+}
+
+#UserBio {
+  color: black;
 }
 
 #select-viz{
