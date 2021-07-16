@@ -4,24 +4,41 @@
 
 h1 {
     color: white;
-    font-family:'Courier New', Courier, monospace
+    font-family: 'Nunito',sans-serif;
+    font-weight: 800;
 }
 
 h2 {
     color:#1DA1F2;
-    font-family:'Courier New', Courier, monospace
+    font-family: 'Nunito', sans-serif;
+    font-weight: 600;
+}
+
+h3 {
+  color:#DDDDDD;
+  font-family: 'Nunito', sans-serif;
+  font-weight: 600;
 }
 
 p {
     color:white;
+    font-family: 'Nunito', sans-serif;
 }
 
 #user-bio {
     color: black;
+    font-family: 'Nunito', sans-serif;
 }
 
 #app-intro {
     color: black;
+    font-family: 'Nunito', sans-serif;
+}
+
+#collage {
+    height: 370px;
+    width: 525px;
+    padding-left: 25px;
 }
 
 #select-viz{
@@ -30,6 +47,7 @@ p {
 
 .col-md-4 {
     background-color: #DDDDDD;
+    border-radius: 8px;
 }
 
 .solid {
@@ -111,6 +129,7 @@ p {
 .btn {
     color: #1DA1F2;
     border: 1px solid #1DA1F2;
+    font-family: 'Nunito', sans-serif;
     
 }
 
@@ -119,10 +138,14 @@ p {
     border: 1px solid #1DA1F2
 }
 
+.btn:focus {
+    background: #1470a9;
+    color: white
+}
+
 #dynamic-viz {
-  width: 600px;
+  width: auto;
   height: 800px;
-  position: relative;
 }
 
 .x.axis path {
