@@ -9,31 +9,9 @@ h1 {
 }
 
 h2 {
-    color:#1DA1F2;
-    font-family:'Courier New', Courier, monospace;
-    font-weight: bold;
-}
-
-h3 {
   color:#1DA1F2;
-  font-family:'Courier New', Courier, monospace
-}
-
-h4 {
-  color:#1DA1F2;
-  font-family:'Courier New', Courier, monospace
-}
-
-h5 {
-  color:#1DA1F2;
-  font-family:'Courier New', Courier, monospace
-}
-
-h6 {
-  color:#1DA1F2;
-  font-family:'Courier New', Courier, monospace
-    font-family: 'Nunito', sans-serif;
-    font-weight: 600;
+  font-family: 'Nunito', sans-serif;
+  font-weight: 600;
 }
 
 h3 {
@@ -47,7 +25,12 @@ p {
     font-family: 'Nunito', sans-serif;
 }
 
-#user-bio {
+#UserBio {
+    color: black;
+    font-family: 'Nunito', sans-serif;
+}
+
+#UserStats {
     color: black;
     font-family: 'Nunito', sans-serif;
 }
