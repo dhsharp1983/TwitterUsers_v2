@@ -9,7 +9,29 @@ h1 {
 
 h2 {
     color:#1DA1F2;
-    font-family:'Courier New', Courier, monospace
+    font-family:'Courier New', Courier, monospace;
+    font-weight: bold;
+    
+}
+
+h3 {
+  color:#1DA1F2;
+  font-family:'Courier New', Courier, monospace
+}
+
+h4 {
+  color:#1DA1F2;
+  font-family:'Courier New', Courier, monospace
+}
+
+h5 {
+  color:#1DA1F2;
+  font-family:'Courier New', Courier, monospace
+}
+
+h6 {
+  color:#1DA1F2;
+  font-family:'Courier New', Courier, monospace
 }
 
 p {
@@ -22,6 +44,10 @@ p {
 
 #app-intro {
     color: black;
+}
+
+#UserBio {
+  color: black;
 }
 
 #select-viz{
